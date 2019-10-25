@@ -1,0 +1,94 @@
+%!TEX encoding = UTF-8
+
+\chapter{Final Remarks}
+\label{chap:final_remarks}
+
+The core \emph{goal} of this thesis was to develop reasoning algorithms for robots, such that they would be able to operate in unstructured human environments and deal with elements not seen during training, under certain assumptions.
+To this end, the \emph{approach} that we followed for this work was to develop and test computational models that account for perceived object affordances~(i.e., action possibilities) and other environment elements contingent on the scenario being studied (e.g, manipulative gestures, tool use, planning of complex motor tasks under noise).
+The main \emph{conclusion} is that this type of affordance-based models is indeed a powerful means for service robotics, providing interesting results without the burden of large robot sensorimotor data acquisition, yet still offering the flexibility of a well-founded probabilistic framework that can be inspected and engineered.
+
+For pursuing the above-mentioned goal we made several contributions, summarized in Sec.~\ref{sec:final_remarks:main_contributions}.
+Finally, Sec.~\ref{sec:final_remarks:limitations_and_future_work} brings to light some existing limitations in the proposed work, and potential future directions for tackling them.
+
+\section{Main Contributions}
+\label{sec:final_remarks:main_contributions}
+
+There are four main contributions of this thesis.
+
+First, in Sec.~\ref{sec:platform:software_architecture} of Ch.~\ref{chap:platform} we illustrated a software framework for visual robot affordance learning.
+It is based on an original implementation by Montesano (see \cite{montesano:2008} and Sec.~\ref{sec:background:previous_works:montesano}).
+Our contribution was to extend this framework for making it \emph{modular} and versatile.
+In particular, we integrated this framework with modern versions of the C++ language and of the \ac{YARP} middleware (see Sec.~\ref{sec:platform:icub}) that support research with the iCub humanoid robot.
+We added the possibility of extracting additional shape descriptors, which users can select depending on the experimental context (e.g., convexity defects for experiments involving hands and tools).
+This framework now supports real time operations with robot sensors:
+e.g., 30~Hz color cameras with $640\times480$ pixel resolution,
+shape extraction with an i7-4700MQ processor and 16 GB of memory.
+We made this framework publicly available: see footnote~\footref{footnote:robot-affordances_url} on p.~\pageref{footnote:robot-affordances_url}.
+
+Second, in Ch.~\ref{chap:gestures} we proposed a computational model that combines object affordances with communication (gestures and language).
+We do this by contributing a gesture recognizer for manipulative hand gestures (detailed in Appendix~\ref{chap:gesture_recognition}), and embedding this gesture recognizer into a computational model of object affordances and word meanings, previously proposed by Salvi (see \cite{salvi:2012:smcb}, Sec.~\ref{sec:background:previous_works:aff_language} and Sec.~\ref{sec:gestures:related:salvi}).
+The resulting model allows a robot to interpret and describe the actions of human agents by reusing the robot's previous experience.
+In doing so, the robot shifts from reasoning in an ego-centric manner to reasoning about actions performed by external human users, thus being social to some extent.
+Our model can be used flexibly to do inference on variables that characterize an environment (e.g., to do prediction, belief revision, early action recognition).
+In addition, by reasoning on the probabilities of words, the model shows the emergence of semantic language properties.
+We made this model publicly available: see footnote~\footref{footnote:tcds-gestures_url} on p.~\pageref{footnote:tcds-gestures_url}.
+
+Third, in Ch.~\ref{chap:tool} we proposed a computational model of affordances that involves multiple objects and gives rise to tool use, which is a desirable skill for having robots operate in complex manipulation tasks that are typical of unstructured environments.
+In particular, for this model we contribute a visual feature extraction component that processes multiple objects in their entirety and in their sub-parts.
+In the learning phase, we evaluate various types of computational affordance models and parameters for assorted tasks (e.g., generalization to unseen objects; transfer of learned knowledge from a simulated robot to a real one).
+In addition, we contribute a method for learning the affordances of robot hand postures (i.e., different apertures of the fingers).
+This allows to investigate the developmental link from hand affordances (i.e., action possibilities by using the hands) to tool affordances (i.e., action possibilities by using the hands).
+Our dataset of hand posture affordances is made publicly available: see footnote~\footref{footnote:hand_aff_dataset} on p.~\pageref{footnote:hand_aff_dataset}.
+
+Fourth, in Ch.~\ref{chap:poeticon++_case_study} we reported a case study about the application of the ideas presented in the previous chapters~(namely affordances, language, and tool use).
+These are used for supporting robot planning of manipulation tasks, developed in the context of the POETICON++ research project.
+We illustrate a robust problem solving system that combines affordances with symbolic reasoning probabilistically.
+This system is capable of dealing with uncertainty, using heuristics that allow the robot to adapt to the current situation, and to find creative solutions for a task given by a human person via verbal instructions.
+We made this system publicly available: see footnote~\footref{footnote:poeticon_repo} on p.~\pageref{footnote:poeticon_repo}.
+We contribute much of the code, the integration and testing of all components under several conditions, and a novel simulated symbolic reasoner for validating the probabilistic action planner under challenging conditions.
+
+\section{Limitations and Future Work}
+\label{sec:final_remarks:limitations_and_future_work}
+
+We now discuss current limitations, and we provide possible research directions pertaining to the topics of the thesis.
+
+\subsection{Restricted Scenarios}
+
+Collecting large amounts of robot sensorimotor data (with real robots) is challenging and costly.
+This is one reason for the scenarios considered in this thesis being restricted (see Sec.~\ref{sec:platform:scenario}).
+
+These scenarios are simple in the sense that they consider a humanoid robot in a fixed position (being able to move its torso, arms and head), next to a table (with a known height) that has a few objects on top, with some visual perception algorithms available, and a limited repertoire of three, pre-defined \emph{motor actions} (which can be exerted on any reachable part of the table).
+
+Nevertheless, using simple scenarios is adequate to explore the key concepts touched by this thesis, for instance to make experiments feeding real robot sensory data into the computational models that we propose, and making inferences on such models.
+
+In addition, the experiments in Ch.~\ref{chap:gestures} include the presence of a human in front of the robot and the table, however the human is subject to similar constraints to the robot; in the language part of that chapter, a vocabulary of about~$50$ \emph{words} is considered for grounding the language in the robot sensorimotor experience, and for describing the experiments verbally.
+Still, it would be desirable to have a richer sets of concepts (e.g., actions and words), making our model more \emph{scalable}.
+This can be done either by using large amounts of data~\cite{levine:2018:ijrr}, or by devising machine learning methods that can generalize efficiently from very few observations. With regard to the number of words in Ch.~\ref{chap:gestures}, it would be useful to make the model extract syntactic information from the observed data autonomously, relaxing the current bag-of-words assumption.
+
+Furthermore, it would be desirable to have a robot affordance model that is able to extract features autonomously (end-to-end learning) instead of using pre-specified, engineered features suited to the particular tasks studied in this thesis.
+Some works already explore this possibility \cite{dehban:2016:icra,dehban:2017:humanoids}.
+
+\subsection{Notion of Action}
+
+In this thesis, we have considered the motor action to be a discrete symbol, within our computational models.
+This is a limitation because, in the real world, the space of actions is continuous and with complex dynamics.
+The issue of action representation in robotics has drawn ample attention: a recent survey about it is \cite{zech:2019:ijrr}.
+For example, many researchers have resorted to the concept of \acp{DMP} \cite{schaal:2006:dmp}, used for trajectory control and planning.
+It allows to learn from example trajectories, and to generate approximate full or partial trajectories from starting and final points.
+It would be interesting to incorporate this concept in the transfer or action from human to robot, a concept that we explored in Ch.~\ref{chap:gestures}.
+
+\subsection{Action Anticipation}
+
+The ability to foresee the action performed by other agents onto physical objects is fundamental for successful action recognition and anticipation, therefore for social interaction too.
+We started exploring this aspect in Sec.~\ref{sec:gestures:results:anticipation_effects} by merging the information from human body gestures, recognized with an algorithm based on \acp{HMM}, with the information from affordances.
+One way to extend this is to employ \acp{RNN}, which can express more complex dynamics than \acp{HMM} (e.g., dependencies between states that are far in time; continuous instead of discrete states), thus permitting the prediction of multiple and variable-length action sequences in the future~\cite{schydlo:2018:icra}.
+Another promising avenue for research on action anticipation is that of include eyes and gaze into the estimation model.
+Eye cues give additional information (earlier information), besides body joints, during \hr{} collaboration~\cite{duarte:2018:ral}.
+
+\subsection{3D Perception}
+
+The visual perception algorithms adopted in this thesis are based on~2D data.
+It would be profitable to augment it with~3D information.
+On the iCub robot, this has been done, for example with stereo vision \cite{fanello:2014:humanoids,mar:2018:tcds}.
+However, this technique suffers from issues such as miscalibration of the robot cameras during head and eye movements.
+In addition, acquiring good quality~3D data of thin objects (such as the sandwich ingredients used in Ch.~\ref{chap:poeticon++_case_study}, approximately 1~cm thick) located on a tabletop at a short distance from the robot (whose stereo eyes have a short baseline distance between themselves), remains a challenging problem, manifested with noisy disparity maps.

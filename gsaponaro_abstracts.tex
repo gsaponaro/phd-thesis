@@ -1,0 +1,92 @@
+%!TEX encoding = UTF-8
+
+\documentclass{article}
+
+\usepackage[T1]{fontenc} % output - specifies encoding used in fonts; needs full LaTeX distribution to produce good-looking output
+\usepackage[utf8]{inputenc} % input - type accented characters directly from keyboard
+\usepackage[portuguese,english]{babel} % internationalization - hyphenation, typographic rules for one or more languages
+
+\usepackage[nolist]{acronym}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{lmodern}
+\usepackage{mathtools}
+
+% needed by custom_commands
+\usepackage{tikz}
+
+% load macros and variables (\input is enough, \include would be overkill)
+\input{custom_commands}
+% extra commands
+\newcommand{\alexName}{Alexandre José Malheiro Bernardino}
+\newcommand{\giampiName}{Giampiero Salvi}
+\newcommand{\loreName}{Lorenzo Jamone}
+
+\usepackage{hyperref} % create hyperlinks, also \href{url}{text}
+\hypersetup{hidelinks}
+% set PDF metadata
+\hypersetup{pdftitle={\myThesisTitle},
+            pdfkeywords={\myThesisKeywords},
+            pdfauthor={\myFullName}}
+
+\newcommand*{\PathFrontmatter}{./1_frontmatter}
+
+\begin{document}
+
+\begin{acronym}
+\acro{ASR}{Automatic Speech Recognition}
+\end{acronym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\noindent\textbf{Título}: Gestos e Potencialidades de Objetos para Interação Homem--Robô \\
+\noindent\textbf{Nome}: \myFullName \\
+\noindent\textbf{Doutoramento em}: Engenharia Eletrotécnica e de Computadores \\
+\noindent\textbf{Orientador}: Doutor \alexName \\
+\noindent\textbf{Co-orientador}: Doutor \giampiName \\
+\noindent\textbf{Co-orientador}: Doutor \loreName \\
+
+\bigskip
+
+\noindent\textbf{Resumo}
+
+\bigskip
+
+\input{\PathFrontmatter/abstract-portuguese-content_300words}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\noindent\textbf{Title}: \myThesisTitle \\
+\noindent\textbf{Name}: \myFullName \\
+\noindent\textbf{PhD Degree in}: Electrical and Computer Engineering \\
+\noindent\textbf{Supervisor}: Doctor \alexName \\
+\noindent\textbf{Co-Supervisor}: Doctor \giampiName \\
+\noindent\textbf{Co-Supervisor}: Doctor \loreName \\
+
+\bigskip
+
+\noindent\textbf{Abstract}
+
+\bigskip
+
+\input{\PathFrontmatter/abstract-english-content_300words}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\noindent\textbf{Título}: Gestos e Potencialidades de Objetos para Interação Homem--Robô \\
+\noindent\textbf{Nome}: \myFullName \\
+\noindent\textbf{Doutoramento em}: Engenharia Eletrotécnica e de Computadores \\
+\noindent\textbf{Orientador}: Doutor \alexName \\
+\noindent\textbf{Co-orientador}: Doutor \giampiName \\
+\noindent\textbf{Co-orientador}: Doutor \loreName \\
+
+\bigskip
+
+\noindent\textbf{Resumo alargado}
+
+\bigskip
+
+\input{\PathFrontmatter/abstract-portuguese-content_1200words}
+
+\end{document}

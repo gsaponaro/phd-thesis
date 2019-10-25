@@ -1,0 +1,57 @@
+%!TEX encoding = UTF-8
+
+\begin{otherlanguage*}{portuguese}
+Os robôs pessoais e de serviço podem beneficiar a sociedade em atividades e desafios diferentes, graças às suas capacidades mecânicas e de tomadas de decisão cada vez mais avançadas.
+No entanto, para isso acontecer, uma das condições essenciais é a existência de interfaces coerentes, naturais e intuitivas para que os humanos possam usar estas máquinas inteligentes de uma forma frutuosa e eficaz.
+No geral, o objetivo de alcançar interfaces intuitivas para a interação homem--robô (\emph{\hri}) não foi ainda alcançado, em parte pelo facto de que os robôs não estão ainda difusos nos espaços públicos, em parte devido às dificuldades técnicas na interpretação das intenções humanas, por exemplo, através das linguagens falada e gestual.
+
+Construir robôs de serviço, que percebam o que os rodeia, implica que os mesmos possuam capacidades que lhes permitam funcionar em ambientes não estruturados e em condições imprevisíveis, ao contrário dos robôs industriais que operam em ambientes altamente estruturados, controlados e repetíveis.
+Para enfrentar estes desafios, nesta tese desenvolvemos modelos computacionais baseados em descobertas da psicologia do desenvolvimento~(potencialidades de objetos, \emph{object affordances}) e da neurociência~(sistema de neurónios espelho).
+Os modelos propostos resultam da consideração que os objetos transportam informação sobre ações e interações.
+Experiências no campo da neurociência têm indicado que as pessoas percebem as ações físicas dos outros porque o que os outros fazem pertence a um repertório motor e de experiência comum.
+Na psicologia, as potencialidades são recursos que o ambiente oferece a agentes que têm as capacidades sensório-motoras para as sentir e usar.
+Com base nestes conceitos, desenhamos capacidades de perceção e de raciocínio que suportam interfaces eficazes para utilizadores humanos.
+
+Nas últimas décadas, o interesse sobre a inteligência humana e sobre como essa evolui durante a vida de uma pessoa, a começar pelo nascimento e continuando na infância e na idade adulta, tem aumentado.
+Porém, não é sempre possível efetuar experiências científicas em sujeitos humanos, por várias razões, incluindo eficiência, viabilidade e ética.
+Por exemplo, não é exequível estudar o desenvolvimento das capacidades da visão humana cobrindo os olhos de uma criança durante meses; ou estudar a importância da boca e das expressões faciais ``desligando'' a cara de uma pessoa por um período de tempo prolongado.
+Por outro lado, é possível fazer este tipo de estudos numa máquina que imite corpo e capacidades humanas.
+Isso motiva o uso dos robôs, particularmente dos robôs humanoides que foram construídos a pensar nos princípios da incorporação~(\emph{embodiment}) e da aprendizagem por desenvolvimento.
+Estas características tornam-nos instrumentos ideais para experimentar as atuais teorias sobre aprendizagem e desenvolvimento da inteligência.
+Usamos o robô humanoide iCub para verificar as ideias, os algoritmos e os \emph{softwares} descritos nesta tese.
+
+Nos últimos anos, tem havido um interesse crescente sobre a incorporação de sugestões contextuais na perceção robótica, como conhecimento que advém da localização, do tipo de ambiente ou quarto, do número, tipologia e das características típicas das pessoas ou dos objetos que pertencem a uma situação comum no espaço e no tempo: existe informação implícita contida no ambiente, que deveria ser interpretada por sistemas para melhorar a fiabilidade dos dispositivos.
+Por exemplo, num cenário de ações de manipulação, um agente (humano ou robótico) interage com o ambiente tocando objetos físicos para uma finalidade específica: podemos desenhar um sistema de reconhecimento de ações contextuais que olha aos movimentos cinemáticos do agente e também aos objetos presentes na cena, aplicando um raciocínio obre as possibilidades oferecidas nela.
+
+\bigskip
+
+A primeira contribuição desta tese é uma biblioteca de \emph{software} modular para aprendizagem de potencialidades visuais em robôs, baseada na exploração autónoma do mundo, recolha de dados sensório-motores e técnicas estatísticas~(redes bayesianas).
+É um sistema que pode ser usado em robôs humanoides, focado na modularidade e versatilidade~(p.ex., separa perceção, aprendizagem e componentes motoras, permitindo de escolher quais componentes usar) e na operação em tempo real~(p.ex., suporta câmaras em robôs que capturam imagens a 30 fotogramas por segundo).
+Por isso, esta biblioteca foi adotada como elemento de base para as seguintes contribuições desta tese, mas teve também um impacto externo, tendo sido usada por outros investigadores.
+
+A segunda contribuição é um modelo que incorpora potencialidades de objetos com comunicação~(gestos e linguagem).
+Esta abordagem permite a um robô de interpretar e descrever as ações de agentes humanos, reutilizando a experiência prévia do próprio robô.
+
+A terceira contribuição é um modelo para potencialidades robóticas de ferramentas.
+Consiste em
+(i)~extração de padrões visuais de múltiplos objetos ao mesmo tempo, extraindo informação da forma dos objetos inteiros e das suas sub-partes;
+(ii)~desenho e avaliação de modelos e parâmetros para várias tarefas (p.ex., generalização a objetos não treinados, transferir conhecimento da simulação para o mundo real);
+(iii)~ligação entre potencialidades de mãos (i.e., possibilidade de ações usando as mãos) e potencialidades de ferramentas (i.e., possibilidade de ações usando ferramentas).
+
+A quarta contribuição é um estudo de caso sobre a aplicação de potencialidades a instruções verbais de humanos para o planeamento de tarefas de manipulação em robôs.
+Este modelo foi utilizado no projeto de investigação POETICON++.
+A motivação é originada pelas dificuldades técnicas quando se enfrentam situações novas em sistemas cognitivos e incorporados~(\emph{embodied}), ou seja, robôs.
+
+Seguem-se dois apêndices.
+No primeiro, descrevemos um novo modelo robótico para reconhecer gestos humanos em contextos de manipulação, inspirado em técnicas estatísticas de reconhecimento automático de fala.
+O segundo apêndice lida com comunicação robótica: a atitude social percebida por pessoas quando observam certos gestos efetuados por um robô humanoide com a cabeça e com o corpo, quando a informação facial é desligada.
+
+\bigskip
+
+Resumindo, buscamos inspiração nas neurociências para desenvolver interfaces homem--robô baseadas em gestos naturais do corpo e em potencialidades de objetos~(possibilidades de ações), que são ambos elementos que fornecem pistas sobre a correta interpretação das instruções e do contexto.
+Nesta tese, investigamos como a informação explícita e implícita pode fornecer, no seu conjunto, sugestões para compreender o contexto e interpretar instruções, e como isso pode levar a uma utilização dos robôs mais intuitiva.
+
+Mostramos experiências bem sucedidas no robô humanoide iCub, tornamos o nosso código publicamente disponível em repositórios abertos, e estamos confiantes de que as nossas contribuições serão úteis para a comunidade de robótica cognitiva.
+
+\textbf{Palavras-chave}: \myPortugueseThesisKeywords
+\end{otherlanguage*}

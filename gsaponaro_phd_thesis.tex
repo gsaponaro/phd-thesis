@@ -1,0 +1,238 @@
+%!TEX encoding = UTF-8
+
+\documentclass[
+    headinclude=true,footinclude=true, % additional adjustments of text block vertical size
+    numbers=noenddot, % remove dot after figure numbers
+    ]
+        {scrbook} % KOMA-Script 'book' class for classicthesis
+
+\usepackage[T1]{fontenc} % output - specifies encoding used in fonts; needs full LaTeX distribution to produce good-looking output
+\usepackage[utf8]{inputenc} % input - type accented characters directly from keyboard
+\usepackage[portuguese,english]{babel} % internationalization - hyphenation, typographic rules for one or more languages
+
+\usepackage[
+    dottedtoc, % set page numbers flushed right in ToC
+    subfig % enable compatibility with subfig (subcaption would be preferable)
+    ]
+        {classicthesis}
+
+\setcounter{secnumdepth}{4} % number subsubsections, https://tex.stackexchange.com/a/300800
+
+\usepackage[
+    backend=biber, % bibliography engine
+    backref, % make hyper-references back from bibliography to citation
+    style=alphabetic, % NameYear
+    hyperref, % make citations and references clickable - requires hyperref pkg
+    maxbibnames=99, % display all authors of multi-author articles
+    ]
+        {biblatex} % note: incompatible with ucs (-> utf8x), natbib
+
+%% make \fullcite display >1 authors, https://tex.stackexchange.com/a/101744
+\DeclareCiteCommand{\fullcite}
+  {\usebibmacro{prenote}}
+  {\usedriver
+     {\defcounter{minnames}{6}%
+      \defcounter{maxnames}{6}}
+     {\thefield{entrytype}}.}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+%% define \underlinename to highlight names in \fullcite,
+%% optionally also in final bibliography, https://tex.stackexchange.com/a/412872
+\def\makenamesetup{%
+\def\bibnamedelima{~}%
+\def\bibnamedelimb{ }%
+\def\bibnamedelimc{ }%
+\def\bibnamedelimd{ }%
+\def\bibnamedelimi{ }%
+\def\bibinitperiod{.}%
+\def\bibinitdelim{~}%
+\def\bibinithyphendelim{.-}}
+\newcommand*{\makename}[2]{\begingroup\makenamesetup\xdef#1{#2}\endgroup}
+
+\newcommand*{\underlinename}[3]{%
+\def\lastname{#1}%
+\def\firstname{#2}%
+\def\firstinit{#3}}
+
+\usepackage[normalem]{ulem}
+
+\makeatletter
+\newcommand{\namehighighter}[1]{%
+\ifboolexpr{(test {\ifdefequal{\firstname}{\namepartgiven}}
+             or test {\ifdefequal{\firstinit}{\namepartgiven}})
+            and test {\ifdefequal{\lastname}{\namepartfamily}}}
+  {\uline{#1}}
+  {#1}}
+
+\renewbibmacro*{name:given-family}[4]{%
+\usebibmacro{name:delim}{#2#3#1}%
+\usebibmacro{name:hook}{#2#3#1}%
+\namehighighter{%
+\ifdefvoid{#2}{}{\mkbibnamegiven{#2}\isdot\bibnamedelimd}%
+\ifdefvoid{#3}{}{%
+  \mkbibnameprefix{#3}\isdot
+  \ifprefchar
+    {}
+    {\ifuseprefix{\bibnamedelimc}{\bibnamedelimd}}}%
+\mkbibnamefamily{#1}\isdot
+\ifdefvoid{#4}{}{\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}}
+\makeatother
+
+\usepackage[
+    autostyle % adapt citation style to current document language
+    ]
+        {csquotes} % Context Sensitive Quotations; provides biblatex \enquote{}
+
+\usepackage{etoolbox} % alternative implementations of LaTeX kernel commands
+
+\usepackage[
+    pass] % disable all options and calculations except verbose and showframe
+        {geometry} % cus­tomize page lay­out and document dimensions
+
+\usepackage[
+    printonlyused, % skip acronyms not used in text
+    ]
+        {acronym}
+
+%% make acronym work with classicthesis, http://tex.stackexchange.com/a/349050
+\makeatletter
+\AtBeginEnvironment{acronym}{%
+  \def\NRorg@descriptionlabel#1{\hspace{\labelsep}#1}%
+  \setkomafont{descriptionlabel}{\normalfont}%
+  \renewcommand*{\aclabelfont}[1]{\spacedlowsmallcaps{#1}}%
+}
+\makeatother
+
+%% expand acronyms at least once per section, https://tex.stackexchange.com/questions/126470/
+\preto\section\acresetall
+
+%% fix conflict between hyperref and footmisc, https://tex.stackexchange.com/a/62091
+\usepackage{hyperref}
+\let\oldFootnote\footnote
+\newcommand\nextToken\relax
+\renewcommand\footnote[1]{%
+    \oldFootnote{#1}\futurelet\nextToken\isFootnote}
+\newcommand\isFootnote{%
+    \ifx\footnote\nextToken\textsuperscript{,}\fi}
+
+\usepackage{algorithm} % http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode} % http://ctan.org/pkg/algorithmicx
+\usepackage{array} % programmable column format in tables
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm} % bold math
+\usepackage{booktabs}
+\usepackage{cancel}
+\usepackage{cprotect}
+\usepackage{tabularx}
+\usepackage{graphicx} % must be loaded before epstopdf
+\usepackage{epstopdf}
+\usepackage[multiple]{footmisc} % multiple footnotes at the same point
+\usepackage{interval}
+\usepackage{lmodern} % make classicthesis happy with fonts
+\usepackage{mathtools}
+\usepackage{rotating}
+\usepackage{siunitx} % typeset tables with SI units
+\sisetup{separate-uncertainty=true} % print uncertainty as separate number
+\usepackage{subfig}
+\usepackage[nounderscore]{syntax} % for defining the context-free grammar
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{fit}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+
+%% load macros and variables
+\input{custom_commands}
+
+%% hyperref settings
+\usepackage{hyperref} % create hyperlinks, also \href{url}{text}
+\hypersetup{hidelinks}
+
+%% set PDF metadata
+\hypersetup{pdftitle={\myThesisTitle},
+            pdfkeywords={\myThesisKeywords},
+            pdfauthor={\myFullName}}
+
+%% set paths of figures, LaTeX sources and bibliography
+\graphicspath{{figures/}}
+\newcommand*{\PathFrontmatter}{./1_frontmatter}
+\newcommand*{\PathMainmatter}{./2_mainmatter}
+\newcommand*{\PathBackmatter}{./3_backmatter}
+\addbibresource{\PathBackmatter/bibliography_phd.bib}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% frontispiece and first internal page
+\include{\PathFrontmatter/frontispiece}
+\include{\PathFrontmatter/first_page_with_jury_affiliations}
+
+% abstracts
+\include{\PathFrontmatter/abstract-english}
+\include{\PathFrontmatter/abstract-portuguese}
+
+% acknowledgements
+\include{\PathFrontmatter/acknowledgments}
+
+% table of contents and other lists
+\tableofcontents
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\tocEntry{List of Figures}}
+\listoffigures
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\tocEntry{List of Tables}}
+\listoftables
+
+% list of acronyms, abbreviations and notation
+\include{\PathFrontmatter/acronyms}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% underline my name when listing publications with \fullcite
+\underlinename{Saponaro}{Giovanni}{G.}
+
+\include{\PathMainmatter/motivation}
+
+\include{\PathMainmatter/background}
+
+\include{\PathMainmatter/platform}
+
+\include{\PathMainmatter/gestures}
+
+\include{\PathMainmatter/tools}
+
+\include{\PathMainmatter/poeticon++}
+
+\include{\PathMainmatter/final_remarks}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% appendixes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\cleardoublepage
+\include{\PathMainmatter/appendix-gesture_recognition}
+
+\include{\PathMainmatter/appendix-human_perc_robotgest}
+
+% stop underlining my name when listing publications with \fullcite
+\underlinename{}{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cleardoublepage
+\printbibliography[heading=bibintoc]
+
+\end{document}

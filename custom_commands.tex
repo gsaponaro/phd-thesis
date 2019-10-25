@@ -1,0 +1,253 @@
+%!TEX encoding = UTF-8
+
+% frontispiece and PDF metadata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\myThesisTitle}{Gestures and Object Affordances for \HRI}
+\newcommand{\myThesisKeywords}{gestures, object affordances, \hri, iCub robot, machine learning}
+\newcommand{\myFullName}{Giovanni Saponaro}
+\newcommand{\myVertSpace}{\vspace{2.05cm}}
+
+\newcommand{\myPortugueseThesisKeywords}{gestos, potencialidades de objetos~(\foreignlanguage{english}{\emph{object affordances}}), interação homem--robô, robô iCub, aprendizagem automática}
+
+% TikZ diagrams of computational affordance models
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzstyle{circle} = [shape=circle,minimum size=0.7cm,very thick]
+\tikzstyle{every node}=[very thick]
+\tikzstyle{every path}=[very thick]
+\tikzstyle{affarrow} = [->, thick, >=stealth']
+\tikzstyle{affnode} = [ellipse, draw, thick, style={font=\Large}]
+\tikzstyle{group} = [rectangle, draw, black, thick]
+\tikzstyle{dashedgroup} = [rectangle, draw, inner sep=1.2cm, dashed, rounded corners, black]
+\tikzstyle{wordnode} = [ellipse, draw, thick]
+\newcommand{\montesanoAE}{
+    \node[affnode] (actions) {Actions};
+    \node[affnode, below right = 1cm and 1.4cm of actions] (effects) {Effects};
+    \draw[affarrow] (actions) -- (effects.north);
+}
+\newcommand{\montesanoO}{
+    \node[affnode, right of=actions] (objects) [right=3cm] {Objects};
+    \draw[affarrow] (objects) -- (effects.north);
+}
+\newcommand{\salviW}{
+    \node[affnode, below of=effects] (words) [below=1cm] {Words};
+    \draw[affarrow] (actions.south) -- (words.north);
+    \draw[affarrow] (effects.south) -- (words.north);
+    \draw[affarrow] (objects.south) -- (words.north);
+}
+\newcommand{\saponaroGestRecBox}{
+    \node[affnode, above of=actions] (gestures) [above=1cm] {Gestures};
+    \draw[affarrow] (actions.north) -- (gestures.south);
+    \node[dashedgroup, fit=(actions) (gestures),label=above:Gesture recognition]{};
+}
+\newcommand{\saponaroManipulatorUseBox}{
+    \node[affnode, right of=actions] (manipulator) [right=3cm] {Manipulator};
+    \draw[affarrow] (manipulator) -- (effects.north);
+    \node[affnode, above of=manipulator] (actedobject) [above=1cm] {Acted Object};
+    \draw[affarrow] (actedobject) -- (effects.north);
+    \node[dashedgroup, fit=(manipulator) (actedobject),label=above:Tool use]{};
+}
+
+% itemized lists of publications of each chapter/appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\listPublicationsGestures}{%
+\begin{itemize}
+\item \fullcite{saponaro:2017:glu}
+\item \fullcite{saponaro:2019:language}
+\end{itemize}%
+}
+
+\newcommand{\listPublicationsTools}{%
+\begin{itemize}
+\item \fullcite{goncalves:2014:icarsc}
+\item \fullcite{goncalves:2014:icdl}
+\item \fullcite{saponaro:2017:icdl}
+\end{itemize}%
+}
+
+\newcommand{\listPublicationsPoeticonpp}{%
+\begin{itemize}
+\item \fullcite{antunes:2016:icra}
+\item \fullcite{antunes:2017:icdl}
+\item \fullcite{saponaro:2018:poeticon++}
+\end{itemize}%
+}
+
+\newcommand{\listPublicationsAppendixGestureRecognition}{%
+\begin{itemize}
+\item \fullcite{saponaro:2013:crhri}
+\end{itemize}%
+}
+
+\newcommand{\listPublicationsAppendixHumanPercRobotGest}{%
+\begin{itemize}
+\item \fullcite{saponaro:2011:hri}
+\end{itemize}%
+}
+
+% algorithms
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\myAlgo}{\textsc}
+
+\newcommand{\BW}{\myAlgo{Baum--Welch}}
+\newcommand{\EM}{\myAlgo{EM}}
+\newcommand{\EMlong}{\myAlgo{Expectation--Maximization}}
+\newcommand{\FB}{\myAlgo{Forward--Backward}}
+\newcommand{\jtree}{\myAlgo{Junction Tree}}
+\newcommand{\MH}{\myAlgo{Metropolis--Hastings}}
+\newcommand{\UpMix}{\myAlgo{UpMix}}
+\newcommand{\Viterbi}{\myAlgo{Viterbi}}
+
+% unnumbered line in an algorithm
+% http://tex.stackexchange.com/questions/11269
+\def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
+
+% frequent expressions that require typesetting care
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\actioneffect}{action--effect}
+\newcommand{\actionperception}{action--perception}
+\newcommand{\actobj}{action--object}
+\newcommand{\actobjeff}{action--object--effect}
+\newcommand{\AffWords}{Affordance--Words}
+\newcommand{\apriori}{\emph{a~priori}}
+\newcommand{\armhand}{arm--hand}
+\newcommand{\armhead}{arm--head}
+\newcommand{\defacto}{\emph{de~facto}}
+\newcommand{\GestAtt}{Gesture--Attitude}
+\newcommand{\gestatt}{gesture--attitude}
+\newcommand{\gestpar}{gesture--parameter}
+\newcommand{\gestparval}{\gestpar--value}
+\newcommand{\HC}{Human--Computer}
+\newcommand{\hc}{human--computer}
+\newcommand{\hh}{human--human}
+\newcommand{\HCI}{\HC{} Interaction}
+\newcommand{\hci}{\hc{} interaction}
+\newcommand{\HR}{Human--Robot}
+\newcommand{\hr}{human--robot}
+\newcommand{\HRI}{\HR{} Interaction}
+\newcommand{\hri}{\hr{} interaction}
+\newcommand{\IntObj}{Inter--Object}
+\newcommand{\intobj}{inter--object}
+\newcommand{\meansend}{means--end}
+\newcommand{\ObjAct}{Object--Action}
+\newcommand{\objecthand}{object--hand}
+\newcommand{\objobj}{object--object}
+\newcommand{\SensMot}{Sensory--Motor}
+\newcommand{\StructureLearning}{Structure Learning}
+\newcommand{\toolbehavior}{tool--behavior}
+\newcommand{\toolobj}{tool--object}
+\newcommand{\wordmeaning}{word--meaning}
+\newcommand{\wordsmeanings}{words--meanings}
+
+% math operators and symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator*{\argmax}{arg\,max} % '*' places the underscored option underneath
+\DeclareMathOperator\cov{cov}
+
+\newcommand{\given}{\mid} % has space around bar, contrary to |
+
+% permit \bigm\mid, to typeset a long vertical bar
+% https://tex.stackexchange.com/a/239253
+\makeatletter
+\let\amsmath@bigm\bigm
+\renewcommand{\bigm}[1]{%
+  \ifcsname fenced@\string#1\endcsname
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+  {\expandafter\amsmath@bigm\csname fenced@\string#1\endcsname}%
+  {\amsmath@bigm#1}%
+}
+\newcommand{\DeclareFence}[2]{\@namedef{fenced@\string#1}{#2}}
+\makeatother
+\DeclareFence{\mid}{|}
+
+\newcommand{\biggiven}{\bigm\mid}
+
+\newcommand{\Mdes}{\ensuremath{M_{\text{des}}}}
+\newcommand{\numgestures}{\ensuremath{\text{\#gestures}}}
+
+\newcommand{\Effect}{\ensuremath{\text{Effect}}}
+\newcommand{\EffectX}{\ensuremath{\text{EffectX}}}
+\newcommand{\EffectY}{\ensuremath{\text{EffectY}}}
+\DeclareMathOperator{\parents}{parents}
+\newcommand{\T}{\top} % transpose
+
+% macros defined for the background chapter and for subsequent ones
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\xinf}{\ensuremath{X_\text{inf}}}
+\newcommand{\xobs}{\ensuremath{X_\text{obs}}}
+
+% macros defined for the gestures and language chapter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\xlat}{\ensuremath{X_\text{lat}}}
+
+\newcommand{\phmm}{\ensuremath{p_{\text{HMM}}}}
+\newcommand{\pbn}{\ensuremath{p_{\text{BN}}}}
+\newcommand{\pcomb}{\ensuremath{p_\text{comb}}}
+
+\newcommand{\myWidthTcds}{0.16}
+
+% macros defined for the tool use chapter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\toolPredictionBigTabularData}{%
+ball $\EffectX$           & $0$ & $0$ & $0$
+                        & $0.3$ & $0.0233$  & $0.0137$
+                        & $0.5$ & $0.8372$  & $0.7945$
+                        & $0.1$ & $0.1395$  & $0.1644$
+                        & $0.1$ & $0$  & $0.0274$
+                        & $0.4372$ & $\bm{0.3671}$     \\
+ball $\EffectY$           & $0$ & $0.01$ & $0$
+                        & $0.1$ & $0$  & $0.0137$
+                        & $0.5$ & $0.2$  & $0.3699$
+                        & $0$ & $0.23$  & $0.3014$
+                        & $0.4$ & $0.56$  & $0.3151$
+                        & $0.65$ & $\bm{0.3872}$     \\
+box $\EffectX$           & $0$ & $0$ & $0$
+                        & $0.0909$ & $0.0233$  & $0.0337$
+                        & $0.9091$ & $0.8372$  & $0.7416$
+                        & $0$ & $0.1395$  & $0.2247$
+                        & $0$ & $0$  & $0$
+                        & $\bm{0.2071}$ & $0.2819$     \\
+box $\EffectY$           & $0$ & $0$ & $0.0112$
+                        & $0$ & $0.0204$  & $0.0449$
+                        & $0.4545$ & $0.5306$  & $0.7079$
+                        & $0.5455$ & $0.4490$  & $0.1348$
+                        & $0$ & $0$  & $0.1011$
+                        & $\bm{0.1169}$ & $0.4781$     \\
+}
+
+
+% macros defined for the POETICON++ chapter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\fo}[1]{\emph{#1}} % first-order logic formulas
+\newcommand{\Hmax}{\ensuremath{H_{\text{max}}}} % maximum horizon of planning
+\newcommand{\myhspacePoeticonpp}{\hspace{0.3cm}} % for tab:action_rules
+
+\newcommand{\us}{\hspace{1pt}\textunderscore} % with space for rules readability
+\newcommand{\myWidthPoeticonpp}{0.14}
+
+\newcommand{\varGood}{\ensuremath{\text{\#good}}}
+\newcommand{\varTotal}{\ensuremath{\text{\#total}}}
+\newcommand{\varSuccess}{\textbf{\ensuremath{\text{success}}}}
+\newcommand{\varAvgSuccess}{\textbf{average success}}
+\newcommand{\valTrue}{\ensuremath{\top}}
+\newcommand{\valFalse}{\ensuremath{\bot}}
+\newcommand{\varSpeed}{\textbf{\ensuremath{\text{speed}}}}
+\newcommand{\varAvgSpeed}{\textbf{average speed}}
+\newcommand{\varNoise}{\ensuremath{\text{noise}}}
+
+% macros defined for the Human Perception of Robot Gestures appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\myWidthHumanPercRobotGestAppendix}{0.225}
