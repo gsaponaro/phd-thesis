@@ -2,7 +2,7 @@
 
 Giovanni Saponaro, PhD thesis: Gestures and Object Affordances for Human-Robot Interaction.
 
-![Cover picture](figures/cover_pic.png)
+<img src="figures/cover_pic.png" alt="Cover picture" width="40%">
 
 ## Linux compilation instructions
 
