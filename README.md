@@ -2,6 +2,8 @@
 
 Giovanni Saponaro, PhD thesis: Gestures and Object Affordances for Human-Robot Interaction.
 
+![Cover picture](figures/cover_pic.png)
+
 ## Linux compilation instructions
 
 First, install the following packages: ```texlive-full biber```
